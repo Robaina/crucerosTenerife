@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Personal webpage of Semidan Robaina Estevez">
+    <meta name="keywords" content="web development, science">
+    <meta name="author" content="Semidan Robaina Estevez">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calendario de cruceros</title>
+
+    <link rel="stylesheet" href="master.css">
+
+    <!-- <script type="text/javascript" src="jquery-3.4.1.min.js"></script> -->
+
+
+    <script src="papaparse.min.js"></script>
+    <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+
+    <!-- <script src="https://unpkg.com/simple-jscalendar@1.4.4/source/jsCalendar.min.js" integrity="sha384-0LaRLH/U5g8eCAwewLGQRyC/O+g0kXh8P+5pWpzijxwYczD3nKETIqUyhuA8B/UB" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/simple-jscalendar@1.4.4/source/jsCalendar.min.css" integrity="sha384-44GnAqZy9yUojzFPjdcUpP822DGm1ebORKY8pe6TkHuqJ038FANyfBYBpRvw8O9w" crossorigin="anonymous"> -->
+
+
+    <link rel="stylesheet" type="text/css" href="jsCalendar/source/jsCalendar.css">
+    <script type="text/javascript" src="jsCalendar/source/jsCalendar.js"></script>
+    <script type="text/javascript" src="jsCalendar/source/jsCalendar.lang.es.js"></script>
+
+    <!-- <script src="https://unpkg.com/mathjs@6.2.1/dist/math.min.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+          }
+        });
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=default" async></script> -->
+  </head>
+
+  <body>
+
+    <div id="title-container">
+      <div id="title">Cruceros previstos en Tenerife</div>
+    </div>
+
+    <!-- <div id="histogram"></div> -->
+
+    <div class="centering-container">
+      <div id="my-calendar" data-first-day-of-the-week="2"></div>
+    </div>
+
+    <div class="centering-container">
+      <div id="calendar-legend"></div>
+    </div>
+
+
+   <script src="script.js"></script>
+  </body>
+</html>
