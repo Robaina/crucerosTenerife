@@ -9,20 +9,13 @@
     <meta name="keywords" content="web development, science">
     <meta name="author" content="Semidan Robaina Estevez">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Coda" rel="stylesheet">
     <title>Calendario de cruceros</title>
+    <link rel="icon" type="image/png" href="anchor.png">
 
     <link rel="stylesheet" href="master.css">
-
-    <!-- <script type="text/javascript" src="jquery-3.4.1.min.js"></script> -->
-
-
     <script src="papaparse.min.js"></script>
     <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
-
-    <!-- <script src="https://unpkg.com/simple-jscalendar@1.4.4/source/jsCalendar.min.js" integrity="sha384-0LaRLH/U5g8eCAwewLGQRyC/O+g0kXh8P+5pWpzijxwYczD3nKETIqUyhuA8B/UB" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://unpkg.com/simple-jscalendar@1.4.4/source/jsCalendar.min.css" integrity="sha384-44GnAqZy9yUojzFPjdcUpP822DGm1ebORKY8pe6TkHuqJ038FANyfBYBpRvw8O9w" crossorigin="anonymous"> -->
-
-
     <link rel="stylesheet" type="text/css" href="jsCalendar/source/jsCalendar.css">
     <script type="text/javascript" src="jsCalendar/source/jsCalendar.js"></script>
     <script type="text/javascript" src="jsCalendar/source/jsCalendar.lang.es.js"></script>
@@ -51,9 +44,22 @@
       <div id="my-calendar" data-first-day-of-the-week="2"></div>
     </div>
 
-    <div class="centering-container">
-      <div id="calendar-legend"></div>
+    <div class="centering-container" id="legend-container">
+    <div id="calendar-legend"></div>
     </div>
+
+    <article id="about">
+      <h1>¿Qué es esto?</h1>
+      <p>Esta aplicación muestra el calendario de llegadas previstas de cruceros al puerto de Santa Cruz de Tenerife. Los datos son obtenidos de la plataforma de datos abiertos de la <a href="http://risp.puertosdetenerife.org/organization/autoridad-portuaria-santa-cruz-de-tenerife">Autoridad Portuaria de Tenerife</a>. Las llegadas se han clasificado de acorde al muelle previsto de atraque &mdash; representado en colores en el calendario. Cada punto de color en el calendario representa una nueva llegada prevista.</p>
+
+      <p>Toca o cliquea sobre un día en el calendario para mostrar más información sobre los cruceros que llegarán ese día. Como el tiempo que va a estar atracado, el origen y destino del crucero o la compañía que se encarga de la logística del atraque.</p>
+
+      <footer id="footer">
+        <p><a href="https://github.com/Robaina/jsCalendar">Semidán Robaina Estévez</a>, 2020.<br/>
+        Usando <a href="https://www.papaparse.com/">Papaparse.js</a> y <a href="https://js.cytoscape.org/">jsCalendar</a> (modificada).</p>
+      </footer>
+    </article>
+
 
 
    <script src="script.js"></script>

@@ -1,10 +1,7 @@
 let ships;
+let results;
 let n_ships_str;
 let output_div;
-// let scale_factor = getComputedStyle(document.documentElement)
-//     .getPropertyValue("--scale-factor");
-
-// document.body.addEventListener("click", removeCalendarOutput);
 
 // Add capitalize method to string class
 Object.defineProperty(String.prototype, "capitalize", {
@@ -13,12 +10,30 @@ Object.defineProperty(String.prototype, "capitalize", {
 	}
 });
 
-function resizeCalendar() {
-  if (window.innerWidth < 450) {
-    let scale_factor = 1.1;
-    document.documentElement.style.setProperty("--scale-factor", scale_factor);
+window.onresize = resizeCalendar;
 
-  }
+function resizeCalendar() {
+
+	// Resize calendar
+	let default_width = 298;
+  let optimal_calendar_width_to_screen_height = 298 / 640;
+	let screen_height = window.innerHeight;
+	let calendar_width = optimal_calendar_width_to_screen_height * screen_height;
+	let scale_factor = calendar_width / default_width;
+	document.documentElement.style.setProperty("--scale-factor", scale_factor);
+	document.documentElement.style.setProperty("--calendar-width", calendar_width + "px");
+
+	// Resize legend
+	let calendar_div = document.getElementById("my-calendar");
+	let legend_width = calendar_div.offsetWidth * 1;
+	let top = calendar_div.offsetTop + calendar_div.offsetHeight;
+	let fontSize = legend_width * 0.06;
+
+  let div = document.getElementById("calendar-legend");
+	div.style.width = legend_width + "px";
+	div.style["font-size"] = fontSize + "px";
+	div.style["margin-left"] = 0.05 * legend_width + calendar_div.offsetLeft + "px";
+
 }
 
 // Get the auto-calendar (we have to wait the window load event)
@@ -36,7 +51,7 @@ Papa.parse(data_url, {
   header: true,
   encoding: "ISO-8859-1",
 	complete: function(results) {
-    
+
     initialize(results);
 
 	}
@@ -51,12 +66,14 @@ Papa.parse(data_url, {
 // 	}
 // });
 
-
 function initialize(results) {
+
+	resizeCalendar();
+
   ships = results.data.filter(s => s.PUERTO_ID === "T");
   ships.pop();
   const fields = Object.keys(ships[0]);
-  console.log(fields);
+  // console.log(fields);
   let names = getPropertyValuesAcrossShips("H_ENTRADA", ships);
   let lengths = getPropertyValuesAcrossShips("ESLORA", ships);
   let arrival_date = ships.map(ship => ship["F_ENTRADA"]);
@@ -67,7 +84,7 @@ function initialize(results) {
   let current_date = new Date;
   let current_month = current_date.getMonth() + 1;
   let n_ships_in_current_month = countShipsInMonth(current_month, dates);
-  console.log(n_ships_in_current_month);
+  // console.log(n_ships_in_current_month);
 
   selectDates(dates, calendar);
 
@@ -103,16 +120,24 @@ function initialize(results) {
     let mes = date.toLocaleString('es-ES', { month: 'long' });
     let n_ships = countShipsInMonth(month, dates);
     n_ships_str = `Total barcos en ${mes}: ${n_ships}`;
-    console.log(n_ships_str);
+    // console.log(n_ships_str);
   })
 
-  resizeCalendar();
 }
 
 function addCalendarLegend(categories) {
+	let calendar_div = document.getElementById("my-calendar");
+	let legend_width = calendar_div.offsetWidth * 1;
+	let top = calendar_div.offsetTop + calendar_div.offsetHeight;
+	let fontSize = legend_width * 0.06;
+
   let div = document.getElementById("calendar-legend");
+	div.style.width = legend_width + "px";
+	div.style["font-size"] = fontSize + "px";
+	div.style["margin-left"] = 0.05 * legend_width + calendar_div.offsetLeft + "px";
+
   let values = Object.keys(categories.values);
-  let text = `<div id="legend-title">${categories.field}:</div>`;
+  let text = `<div id="legend-title">${categories.field}:</div></br>`;
   for (value of values) {
       let color = categories.values[value];
       text += `<div class="legend-field">
@@ -134,20 +159,32 @@ function countShipsInMonth(month, dates) {
   return n_ships
 }
 
+function hideLegend() {
+	let legend_div = document.getElementById("calendar-legend");
+	legend_div.style.display = "none";
+}
+
+function showLegend() {
+	let legend_div = document.getElementById("calendar-legend");
+	legend_div.style.display = "block";
+}
+
 function outputDayContents(day_ships) {
   /*
   Create new div which floats over the calendar to display results, then
   it is closed when touching screen or pressing "close" in div.
   */
+	hideLegend();
+
   innerHTMLs = [];
   let n_ships = day_ships.length;
   for (ship of day_ships) {
     let buque = ship.BUQUE.capitalize();
     let anio = ship.FECCONSTRUCCION !== ""? `(${ship.FECCONSTRUCCION.split("/")[2]})`:"";
     let muelle = ship.MUELLE.replace(" (-)", "").capitalize();
-    let consignatario = ship.CONSIG;
-    let origen = ship.ORIGEN.capitalize();
-    let destino = ship.DESTINO.capitalize();
+    let consignatario = ship.CONSIG.replace("�", "Ñ");
+    let origen = ship.ORIGEN.capitalize().replace("�rdenes", "órdenes");
+    let destino = ship.DESTINO.capitalize().replace("�rdenes", "órdenes");;
 
     innerHTML =`<p><b>Buque: </b>${buque} ${anio}</p>
                 <p><b>Muelle: </b>${muelle}</p>
@@ -171,26 +208,20 @@ function outputDayContents(day_ships) {
   nav_container.classList.add("output-nav-container");
 
   let close_btn = document.createElement("button");
-  close_btn.classList.add("close-btn");
+  close_btn.classList.add("button", "close-btn");
   close_btn.innerHTML = "X";
   close_btn.addEventListener("click", removeCalendarOutput);
-
-  // nav_container.appendChild(close_btn);
-  // output_div.appendChild(close_btn);
 
   if (n_ships > 1) {
 
     let current_output = 0;
-    // let nav_container = document.createElement("div");
-    // nav_container.classList.add("output-nav-container");
-
     let counter = document.createElement("button");
     counter.classList.add("counter");
     counter.innerHTML = `${current_output + 1}/${n_ships}`;
 
     let left_arrow = document.createElement("button");
     left_arrow.innerHTML = "<";
-    left_arrow.classList.add("arrow", "left-arrow");
+    left_arrow.classList.add("button", "arrow");
     left_arrow.addEventListener("click", function() {
       current_output = goToPreviousOutput(current_output, n_ships);
       counter.innerHTML = `${current_output + 1}/${n_ships}`;
@@ -198,30 +229,30 @@ function outputDayContents(day_ships) {
 
     let right_arrow = document.createElement("button");
     right_arrow.innerHTML = ">";
-    right_arrow.classList.add("arrow", "right-arrow");
+    right_arrow.classList.add("button", "arrow");
     right_arrow.addEventListener("click", function() {
       current_output = goToNextOutput(current_output, n_ships);
       counter.innerHTML = `${current_output + 1}/${n_ships}`;
     });
 
     nav_container.appendChild(left_arrow);
-    // nav_container.appendChild(counter);
     nav_container.appendChild(right_arrow);
-    // nav_container.appendChild(counter);
-    // output_div.appendChild(nav_container);
     output_div.appendChild(counter);
 
   }
 
   nav_container.appendChild(close_btn);
   output_div.appendChild(nav_container);
-  document.body.appendChild(output_div);
-  // close_btn.style.opacity = 1;
+
+  // Insert before about section
+	let about_section = document.getElementById("about");
+	about_section.parentNode.insertBefore(output_div, about_section);
 }
 
 function removeCalendarOutput() {
   if (document.body.contains(output_div)) {
     document.body.removeChild(output_div);
+		showLegend();
   }
 }
 
@@ -295,7 +326,7 @@ function selectDates(dates, calendar) {
 
     if (is_in_dates(date)) {
       element.style.fontWeight = 'bold';
-      element.style.color = (info.isCurrentMonth) ? '#289fde' : '#289fde';
+      element.style.color = (info.isCurrentMonth) ? '#289fde' : '#a4cbe0';
     }
   });
   calendar.refresh();
