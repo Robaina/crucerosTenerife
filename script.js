@@ -45,26 +45,26 @@ calendar.onMonthRender(function(index, element, info) {
   element.textContent += ', ' + (info.start.getYear() + 1900);
 });
 
-let data_url = "http://risp.puertosdetenerife.org/dataset/eff95e11-4baa-4ab8-aeb2-33d80c6395d8/resource/4b31504e-fd63-4eba-a9ef-6663a12d5dd0/download/crucerosprevistos.csv";
-Papa.parse(data_url, {
-	download: true,
-  header: true,
-  encoding: "ISO-8859-1",
-	complete: function(results) {
-
-    initialize(results);
-
-	}
-});
-// Papa.parse("crucerosprevistos_Tenerife.csv", {
+// let data_url = "http://risp.puertosdetenerife.org/dataset/eff95e11-4baa-4ab8-aeb2-33d80c6395d8/resource/4b31504e-fd63-4eba-a9ef-6663a12d5dd0/download/crucerosprevistos.csv";
+// Papa.parse(data_url, {
 // 	download: true,
 //   header: true,
+//   encoding: "ISO-8859-1",
 // 	complete: function(results) {
 //
 //     initialize(results);
 //
 // 	}
 // });
+Papa.parse("crucerosprevistos_Tenerife.csv", {
+	download: true,
+  header: true,
+	complete: function(results) {
+
+    initialize(results);
+
+	}
+});
 
 function initialize(results) {
 
