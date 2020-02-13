@@ -19,9 +19,9 @@ html, body {
 
 td {
   cursor: pointer !important;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10+ and Edge */
-  user-select: none; /* Standard syntax */
+  /* -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; */
 }
 
 #title-container {
@@ -54,6 +54,9 @@ td {
 
 #my-calendar {
   display: inline-block;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10+ and Edge */
+  user-select: none; /* Standard syntax */
 }
 
 .day-contents-container {
