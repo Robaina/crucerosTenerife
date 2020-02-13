@@ -4,6 +4,8 @@ Web-scrape basic information about ships
 import requests
 from subprocess import call
 
+worDir = 'C:/Users/tinta/OneDrive/Documents/Web_development/crucerosTenerife/'
+
 # Download new data file
 url = 'http://risp.puertosdetenerife.org/dataset/eff95e11-4baa-4ab8-aeb2-33d80c6395d8/resource/4b31504e-fd63-4eba-a9ef-6663a12d5dd0/download/crucerosprevistos.csv'
 myfile = requests.get(url)
