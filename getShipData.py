@@ -10,12 +10,12 @@ myfile = requests.get(url)
 open('crucerosprevistos_Tenerife.csv', 'wb').write(myfile.content)
 
 # Push commit
-command1 = 'git add crucerosprevistos_Tenerife.csv'
-command2 = 'git commit -m "Update data"'
-command3 = 'git push origin master'
-call(['git', command1])
-call(['git', command2])
-call(['git', command3])
+command1 = 'add crucerosprevistos_Tenerife.csv'
+command2 = 'commit -m "Update data"'
+command3 = 'push origin master'
+call(['git', 'add', 'crucerosprevistos_Tenerife.csv'])
+call(['git', 'commit', '-m', '"Update data"'])
+call(['git', 'push', 'origin', 'master'])
 
 
 # content = BeautifulSoup(open(url), "html.parser")
