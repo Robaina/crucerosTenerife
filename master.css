@@ -172,7 +172,7 @@ td {
 }
 
 #about {
-  --width: calc(1 * var(--calendar-width));
+  --width: 60vw;
   width: var(--width);
   margin-top: calc(0.15 * var(--width));
   margin-left: calc((100vw - var(--width)) / 2);
@@ -223,5 +223,9 @@ a {
     font-size: calc(0.15 * var(--calendar-width));
   }
 
+  #about {
+    --width: calc(1 * var(--calendar-width));
+    width: var(--width);
+  }
 
 }
