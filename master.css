@@ -5,11 +5,12 @@
   --backgroundColor: rgb(252, 252, 252);
   --backgroundColor2: rgb(250, 250, 250);
   --fancyColor: #0b98d9;
+  --titleColor: rgb(236, 236, 236);
 }
 
 html, body {
   background-color: var(--backgroundColor);
-  background-image: url('clean-gray-paper.png');
+  /* background-image: url('clean-gray-paper.png'); */
   /* background-image: url('Bn_Cruceros.jpg'); */
   margin: 0;
   padding: 0;
@@ -26,18 +27,27 @@ td {
 }
 
 #title-container {
-  width: 80vw;
-  height: calc(0.30 * var(--calendar_width));
-  margin-left: 10vw;
-  margin-bottom: 2vh;
-  padding-top: 3.5vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  width: 100vw;
+  height: 400px; /*calc(0.30 * var(--calendar_width));*/
+  margin-left: 0vw;
+  margin-bottom: 5vh;
+  /* padding-top: 3.5vh; */
   text-align: center;
+  background-position: center center;
+  background-image: url('Bn_Cruceros.jpg');
 }
 
 #title {
-  font-size: calc(0.1 * var(--calendar-width));
+  font-size: calc(0.18 * var(--calendar-width));
+  text-shadow: 4px 4px 12px black;
   font-family: 'Anton', sans-serif;
-  color: var(--fontColor);
+  color: var(--titleColor);
 }
 
 #histogram {
@@ -58,6 +68,7 @@ td {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
+  margin-bottom: 2vh;
 }
 
 .day-contents-container {
@@ -200,4 +211,17 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--fancyColor);
+}
+
+@media only screen and (max-width: 400px) {
+
+  #title-container {
+    height: 250px;
+  }
+
+  #title {
+    font-size: calc(0.15 * var(--calendar-width));
+  }
+
+
 }
