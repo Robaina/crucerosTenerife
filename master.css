@@ -10,6 +10,7 @@
 html, body {
   background-color: var(--backgroundColor);
   background-image: url('clean-gray-paper.png');
+  /* background-image: url('Bn_Cruceros.jpg'); */
   margin: 0;
   padding: 0;
   width: 100%;
