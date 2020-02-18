@@ -360,3 +360,7 @@ function addCalendarMarks(date_strs, calendar, category=null) {
 function getShipsOnDate(date_str, ships) {
   return ships.filter(ship => ship["F_ENTRADA"] === date_str)
 }
+
+function filterShipsByProperty(property="BUQUE", value="AIDANOVA") {
+	return ships.filter(ship => ship[property] === value)
+}

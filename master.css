@@ -72,7 +72,7 @@ td {
 }
 
 .day-contents-container {
-  --width: calc(var(--calendar-width) * 1.01);
+  --width: calc(var(--calendar-width) * 1.3);
   background-color: var(--backgroundColor2);
   display: block;
   width: var(--width);
@@ -86,7 +86,7 @@ td {
 
 .output-text-container {
   color: var(--fontColor);
-  font-size: calc(0.039 * var(--calendar-width));
+  font-size: calc(0.045 * var(--calendar-width));
   margin-top: calc(0.11 * var(--calendar-width));
 }
 .output-text-container > p {
@@ -226,6 +226,15 @@ a {
   #about {
     --width: calc(1 * var(--calendar-width));
     width: var(--width);
+  }
+
+  .day-contents-container {
+    --width: calc(var(--calendar-width) * 1.01);
+    width: var(--width);
+  }
+
+  .output-text-container {
+    font-size: calc(0.039 * var(--calendar-width));
   }
 
 }
