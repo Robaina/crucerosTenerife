@@ -52,7 +52,15 @@ calendar.onMonthRender(function(index, element, info) {
 //   encoding: "ISO-8859-1",
 // 	complete: function(results) {
 //
-//     initialize(results);
+    // ships = results.data.filter(s => s.PUERTO_ID === "T");
+	  // ships.pop();
+		//
+		// let unique_ship_names = getUniqueValues(
+		// 	ships.map(ship => ship.BUQUE)
+		// ).sort();
+		//
+		// prepareSelectionForm(unique_ship_names);
+		// changeSelectedShip();
 //
 // 	}
 // });
@@ -62,20 +70,14 @@ Papa.parse("crucerosprevistos_Tenerife.csv", {
 	complete: function(results) {
 
 		ships = results.data.filter(s => s.PUERTO_ID === "T");
-		// ships = ships.filter(ship => ship["BUQUE"] === "AIDANOVA");
 	  ships.pop();
 
 		let unique_ship_names = getUniqueValues(
 			ships.map(ship => ship.BUQUE)
 		).sort();
 
-
 		prepareSelectionForm(unique_ship_names);
-
 		changeSelectedShip();
-
-    // initialize(ships);
-
 	}
 });
 
@@ -158,6 +160,7 @@ function prepareSelectionForm(unique_ship_names) {
 }
 
 function changeSelectedShip() {
+	removeCalendarOutput();
 	unselectDates(calendar);
 	calendar.clearAllEventMarks();
   let selector = document.getElementById("select-list");

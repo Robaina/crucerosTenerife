@@ -206,7 +206,7 @@ form {
 
 #form-buque {
   font-size: calc(0.06 * var(--calendar-width));
-  margin-left: calc(0.40 * var(--calendar-width));
+  margin-left: calc(0.39 * var(--calendar-width));
   margin-bottom: 1vh;
 }
 
