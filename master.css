@@ -48,6 +48,7 @@ td {
   text-shadow: 4px 4px 12px black;
   font-family: 'Anton', sans-serif;
   color: var(--titleColor);
+  max-width: 90%;
 }
 
 #histogram {
@@ -193,6 +194,34 @@ td {
 a {
   text-decoration: none;
   color: var(--fancyColor);
+}
+
+form {
+  margin-top: 5vh;
+  margin-bottom: 3vh;
+  margin-left: calc( (100vw - var(--calendar-width)) / 2 );
+  z-index: 2;
+  color: inherit;
+}
+
+#form-buque {
+  font-size: calc(0.06 * var(--calendar-width));
+  margin-left: calc(0.40 * var(--calendar-width));
+  margin-bottom: 1vh;
+}
+
+#select-list {
+  font-size: calc(0.05 * var(--calendar-width));
+  text-align-last: center;
+  color: var(--fancyColor);
+  background-color: var(--body-color);
+  width: var(--calendar-width);
+  height: calc(0.1 * var(--calendar-width));
+}
+
+select option {
+  background-color: var(--body-color);
+  font-size: calc(0.05 * var(--calendar-width));
 }
 
 ::-webkit-scrollbar {

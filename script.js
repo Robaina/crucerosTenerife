@@ -61,26 +61,41 @@ Papa.parse("crucerosprevistos_Tenerife.csv", {
   header: true,
 	complete: function(results) {
 
-    initialize(results);
+		ships = results.data.filter(s => s.PUERTO_ID === "T");
+		// ships = ships.filter(ship => ship["BUQUE"] === "AIDANOVA");
+	  ships.pop();
+
+		let unique_ship_names = getUniqueValues(
+			ships.map(ship => ship.BUQUE)
+		).sort();
+
+
+		prepareSelectionForm(unique_ship_names);
+
+		changeSelectedShip();
+
+    // initialize(ships);
 
 	}
 });
 
-function initialize(results) {
+function initialize(ships) {
 
 	resizeCalendar();
 
-  ships = results.data.filter(s => s.PUERTO_ID === "T");
-  ships.pop();
-  const fields = Object.keys(ships[0]);
+  // const fields = Object.keys(ships[0]);
   // console.log(fields);
-  let names = getPropertyValuesAcrossShips("H_ENTRADA", ships);
-  let lengths = getPropertyValuesAcrossShips("ESLORA", ships);
-  let arrival_date = ships.map(ship => ship["F_ENTRADA"]);
+  // let names = getPropertyValuesAcrossShips("BUQUE", ships);
+  // let lengths = getPropertyValuesAcrossShips("ESLORA", ships);
+  // let arrival_date = ships.map(ship => ship["F_ENTRADA"]);
 
-  let dates = ships.filter(ship => parseFloat(ship["ESLORA"]) > 0).map(
-    ship => ship["F_ENTRADA"]);
+  // let dates = ships.filter(ship => parseFloat(ship["ESLORA"]) > 0).map(
+  //   ship => ship["F_ENTRADA"]);
 
+	// let dates = ships.filter(ship => ship["BUQUE"] === "AIDANOVA").map(
+	// 	ship => ship["F_ENTRADA"]);
+
+	let dates = ships.map(ship => ship["F_ENTRADA"]);
   let current_date = new Date;
   let current_month = current_date.getMonth() + 1;
   let n_ships_in_current_month = countShipsInMonth(current_month, dates);
@@ -123,6 +138,37 @@ function initialize(results) {
     // console.log(n_ships_str);
   })
 
+}
+
+function prepareSelectionForm(unique_ship_names) {
+	let form = 	document.getElementById("select-list");
+	let option_all = document.createElement("option");
+	option_all.text = "TODOS";
+	option_all.value = "Todos";
+	option_all.selected = "selected";
+	form.add(option_all);
+
+	for (ship_name of unique_ship_names) {
+		let option = document.createElement("option");
+		option.text = ship_name;
+		option.value = ship_name;
+		option.setAttribute("id", ship_name);
+		form.add(option);
+	}
+}
+
+function changeSelectedShip() {
+	unselectDates(calendar);
+	calendar.clearAllEventMarks();
+  let selector = document.getElementById("select-list");
+  let selected_ship = selector[selector.selectedIndex].value;
+  if (selected_ship !== "Todos") {
+		let selected_ships = ships.filter(ship => ship["BUQUE"] === selected_ship);
+		calendar.goto(selected_ships[0]["F_ENTRADA"]);
+		initialize(selected_ships);
+	} else {
+		 initialize(ships);
+	}
 }
 
 function addCalendarLegend(categories) {
@@ -314,6 +360,12 @@ function getDateStr(date) {
     return jsCalendar.tools.dateToString(date, 'DD/MM/YYYY', 'en')
 }
 
+function unselectDates(calendar) {
+	calendar.onDateRender(function(date, element, info) {
+		element.style.fontWeight = 'normal';
+		element.style.color = (info.isCurrentMonth) ? 'black' : '#CACACA';
+	});
+}
 
 function selectDates(dates, calendar) {
   // Make changes on the date elements
@@ -359,8 +411,4 @@ function addCalendarMarks(date_strs, calendar, category=null) {
 
 function getShipsOnDate(date_str, ships) {
   return ships.filter(ship => ship["F_ENTRADA"] === date_str)
-}
-
-function filterShipsByProperty(property="BUQUE", value="AIDANOVA") {
-	return ships.filter(ship => ship[property] === value)
 }
