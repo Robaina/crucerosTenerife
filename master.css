@@ -11,7 +11,6 @@
 html, body {
   background-color: var(--backgroundColor);
   /* background-image: url('clean-gray-paper.png'); */
-  /* background-image: url('Bn_Cruceros.jpg'); */
   margin: 0;
   padding: 0;
   width: 100%;
@@ -34,13 +33,16 @@ td {
 
 
   width: 100vw;
-  height: 400px; /*calc(0.30 * var(--calendar_width));*/
+  height: 400px;
   margin-left: 0vw;
   margin-bottom: 5vh;
   /* padding-top: 3.5vh; */
   text-align: center;
   background-position: center center;
-  background-image: url('Bn_Cruceros.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-image: url('Bn_Cruceros.jpg'); */
+  background-image: url('ocean.jpg');
 }
 
 #title {
