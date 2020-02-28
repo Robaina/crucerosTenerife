@@ -160,7 +160,7 @@ function prepareSelectionForm(unique_ship_names) {
 }
 
 function changeSelectedShip() {
-	window.navigator.vibrate([500]);
+	// window.navigator.vibrate([500]);
 	removeCalendarOutput();
 	unselectDates(calendar);
 	calendar.clearAllEventMarks();
