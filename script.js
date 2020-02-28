@@ -3,6 +3,8 @@ let results;
 let n_ships_str;
 let output_div;
 
+window.navigator.vibrate([200, 200, 400]);
+
 // Add capitalize method to string class
 Object.defineProperty(String.prototype, "capitalize", {
 	value: function() {
